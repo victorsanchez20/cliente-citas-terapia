@@ -1,0 +1,45 @@
+<!-- <router-outlet /> -->
+<div class="container">
+  <h1>1er Paso: Ingrese el número de DNI</h1>
+
+  <div *ngIf="paciente">
+    <p>{{ paciente?.nombre }}</p>
+  </div>
+
+  <div class="section-1">
+    <input
+      type="text"
+      placeholder="Ingrese número de DNI"
+      maxlength="8"
+      [(ngModel)]="dni"
+      readonly
+    />
+
+    <table class="teclado">
+      <tbody>
+        <tr>
+          <td (click)="agregarNumero('7')">7</td>
+          <td (click)="agregarNumero('8')">8</td>
+          <td (click)="agregarNumero('9')">9</td>
+        </tr>
+        <tr>
+          <td (click)="agregarNumero('4')">4</td>
+          <td (click)="agregarNumero('5')">5</td>
+          <td (click)="agregarNumero('6')">6</td>
+        </tr>
+        <tr>
+          <td (click)="agregarNumero('3')">3</td>
+          <td (click)="agregarNumero('2')">2</td>
+          <td (click)="agregarNumero('1')">1</td>
+        </tr>
+        <tr>
+          <td colspan="2" class="zerox" (click)="agregarNumero('0')">0</td>
+          <td class="back" (click)="borrar()">←</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <button type="button" (click)="buscarPaciente()">Buscar</button>
+    <button type="button" (click)="limpiar()">Limpiar</button>
+  </div>
+</div>
