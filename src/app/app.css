@@ -1,107 +1,512 @@
-/* Reset */
-* {
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+/* CONTENEDOR GENERAL */
+.dni-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #07539e, #8db5eb);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* TARJETA PRINCIPAL */
+.dni-card {
+  background: #ffffff;
+  width: 520px;             
+  padding: 40px;             
+  border-radius: 22px;
+  box-shadow: 0 24px 50px rgba(15, 23, 42, 0.15);
+  text-align: center;
+}
+
+/* TITULOS */
+.dni-title {
+  font-size: 26px;       
+  font-weight: 700;
+  color: #0f172a;
+  margin-bottom: 8px;
+}
+
+.dni-subtitle {
+  font-size: 16px;
+  color: #475569;
+  margin-bottom: 28px;
+}
+
+/* INFO PACIENTE */
+.paciente-info {
+  background: #f1f5f9;
+  padding: 14px 18px;        
+  border-radius: 12px;
+  margin-bottom: 18px;
+  font-size: 16px;         
+}
+
+.paciente-label {
+  color: #64748b;
+  margin-right: 6px;
+}
+
+.paciente-nombre {
+  font-weight: 700;
+  color: #000000;
+  font-size: 15px;
+}
+
+/* INPUT DNI */
+.dni-input {
+  width: 85%;
+  font-size: 28px;
+  text-align: center;
+  padding: 14px;
+  border-radius: 12px;
+  border: 2px solid #cbd5e1;
+  outline: none;
+  margin-bottom: 20px;
+  letter-spacing: 6px;
+  background: #f8fafc;
+}
+
+/* TECLADO */
+.keypad {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 14px;
+  margin-bottom: 26px;
+}
+
+.keypad td {
+  background: #f1f5f9;
+  border-radius: 14px;
+  padding: 24px;
+  font-size: 26px;
+  font-weight: 600;
+  color: #0f172a;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.keypad td:hover {
+  background: #e2e8f0;
+}
+
+.keypad .zero {
+  background: #e0f2fe;
+}
+
+.keypad .delete {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* BOTONES */
+.actions {
+  display: flex;
+  gap: 16px;
+}
+
+.btn-primary {
+  flex: 1;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 18px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.35);
+}
+
+.btn-secondary {
+  flex: 1;
+  background: #f8fafc;
+  border: 2px solid #cbd5e1;
+  border-radius: 14px;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.step-card {
+  position: relative;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #f1f5f9;
+  border: none;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  font-size: 26px;
+  cursor: pointer;
+  color: #1e293b;
+  transition: all 0.2s ease;
+}
+
+.arrow:hover {
+  background: #e2e8f0;
+}
+
+.arrow.left {
+  left: -70px;
+}
+
+.arrow.right {
+  right: -70px;
+}
+
+/* INFO GRANDE */
+.paciente-info.big {
+  font-size: 18px;
+  line-height: 1.6;
+  padding: 20px;
+}
+
+/* ====== TERAPISTAS ====== */
+.terapistas-list {
+  margin-top: 16px;
+}
+
+.terapista-card {
+  background: #f1f5f9;
+  padding: 14px;
+  border-radius: 14px;
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.terapista-card:hover {
+  background: #e0e7ff;
+}
+
+.terapista-card.selected {
+  background: #2563eb;
+  color: white;
+}
+
+/* ====== HORAS ====== */
+.horas-container {
+  margin-top: 24px;
+}
+
+.horas-title {
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  color: #0f172a;
+}
+
+.horas-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+
+.hora-btn {
+  padding: 12px;
+  font-size: 1.1rem;
+  border-radius: 12px;
+  border: none;
+  background: #e2e8f0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.hora-btn:hover {
+  background: #c7d2fe;
+}
+
+.hora-btn.selected {
+  background: #16a34a;
+  color: white;
+}
+
+.columns {
+  display: grid;
+  grid-template-columns: 3fr 2fr 2fr;
+  gap: 30px;
+}
+
+.column {
+  background: #f7f7f7;
+  padding: 25px;
+  border-radius: 16px;
+  font-size: 18px;
+}
+
+.card, .btn {
+  display: block;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  border: none;
+}
+
+.selected {
+  background: #1976d2;
+  color: white;
+}
+
+/* AJUSTES PARA LA TARJETA DE SELECCIÓN (PASO 3) - VERSIÓN GRANDE */
+.selection-card {
+  width: 95% !important; 
+  max-width: 1450px; /* Aumentado de 1100px */
+  position: relative;
+  min-height: 750px; /* Aumentado de 500px */
+  padding: 50px !important; /* Más espacio interno */
+}
+
+.selection-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.2fr;
+  gap: 40px; /* Más separación entre columnas */
+  margin-top: 30px;
+  text-align: left;
+}
+
+.selection-column h3 {
+  font-size: 28px; /* Aumentado de 18px */
+  color: #1e293b;
+  margin-bottom: 25px;
+  border-bottom: 3px solid #f1f5f9;
+  padding-bottom: 12px;
+}
+
+/* Áreas de scroll interno */
+.scroll-area {
+  max-height: 500px; /* Más espacio para ver la lista */
+  overflow-y: auto;
+  padding-right: 15px;
+}
+
+/* Items seleccionables (Terapistas) */
+.selectable-item {
+  background: #f8fafc;
+  padding: 25px; /* Más grande para tocar fácil */
+  border-radius: 18px;
+  margin-bottom: 15px;
+  font-weight: 700;
+  font-size: 24px; /* Texto más grande */
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: all 0.2s;
+}
+
+.selectable-item:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.selectable-item.selected {
+  background: #e0f2fe;
+  border-color: #2563eb;
+  color: #1e40af;
+  box-shadow: 0 4px 15px rgba(37, 99, 235, 0.2);
+}
+
+/* Grid de Horas */
+.grid-hours {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.hour-pill {
+  padding: 20px 10px;
+  font-size: 22px; /* Texto más grande */
+  border: 2px solid #cbd5e1;
+  border-radius: 12px;
+  background: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.hour-pill.selected {
+  background: #16a34a;
+  color: white;
+  border-color: #16a34a;
+  transform: scale(1.05);
+}
+
+/* Resumen Final */
+.summary-card {
+  background: #f8fafc;
+  padding: 30px;
+  border-radius: 24px;
+  border: 1px solid #e2e8f0;
+}
+
+.summary-info {
+  margin-bottom: 20px;
+  font-size: 22px; /* Aumentado */
+}
+
+.summary-info span {
+  color: #64748b;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.dias-preview {
+  background: white;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 30px;
+  border: 1px inset #f1f5f9;
+}
+
+.dias-preview ul {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0;
+  font-size: 18px; /* Aumentado */
+  color: #334155;
+  line-height: 1.6;
+}
+
+.btn-confirm {
+  width: 100%;
+  padding: 25px !important; /* Botón gigante */
+  font-size: 26px !important;
+  border-radius: 20px !important;
+  box-shadow: 0 10px 20px rgba(22, 163, 74, 0.3);
+}
+
+/* Ajuste de flechas laterales más grandes */
+.arrow {
+  width: 80px !important;
+  height: 80px !important;
+  font-size: 35px !important;
+  background: white !important;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+}
+
+.arrow.left { left: -40px; }
+.arrow.right { right: -40px; }
+
+/* Responsive */
+@media (max-width: 1100px) {
+  .selection-columns {
+    grid-template-columns: 1fr;
   }
-  
-  /* Fondo */
-  .container {
-    min-height: 100vh;
-    background: #eef2f7;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Tarjeta principal */
-  .section-1 {
-    background: #ffffff;
-    padding: 45px;
-    width: 460px;               /* MÁS GRANDE */
-    border-radius: 18px;
-    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.15);
-    text-align: center;
-  }
-  
-  /* Título */
-  h1 {
-    font-size: 1.6rem;
-    margin-bottom: 30px;
-    margin-right: 150px;
-    color: #111827;
-  }
-  
-  /* Input DNI */
-  .section-1 input {
-    width: 100%;
-    height: 70px;               /* MÁS GRANDE */
-    font-size: 1.8rem;
-    text-align: center;
-    border-radius: 14px;
-    border: 2px solid #d1d5db;
-    outline: none;
-    margin-bottom: 25px;
-  }
-  
-  .section-1 input:focus {
-    border-color: #2563eb;
-  }
-  
-  /* Teclado numérico */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 28px;
-  }
-  
-  td {
-    width: 33.33%;
-    height: 85px;               /* MÁS GRANDE */
-    font-size: 2rem;
-    font-weight: 700;
-    border: 2px solid #e5e7eb;
-    cursor: pointer;
-    background: #f9fafb;
-    transition: background 0.12s ease;
-  }
-  
-  td:hover {
-    background: #e5e7eb;
-  }
-  
-  td:active {
-    background: #c7d2fe;
-  }
-  
-  /* Botones */
-  button {
-    width: 100%;
-    height: 65px;               /* MÁS GRANDE */
-    font-size: 1.3rem;
-    font-weight: 700;
-    border-radius: 14px;
-    border: none;
-    cursor: pointer;
-    margin-top: 14px;
-  }
-  
-  /* Buscar */
-  button[type="submit"] {
-    background: #2563eb;
-    color: #ffffff;
-  }
-  
-  button[type="submit"]:hover {
-    background: #1d4ed8;
-  }
-  
-  /* Limpiar */
-  button[type="button"] {
-    background: #e5e7eb;
-    color: #111827;
-  }
-  
-  button[type="button"]:hover {
-    background: #d1d5db;
-  }
-  
+  .selection-card { width: 98% !important; padding: 20px !important; }
+  .arrow { display: none; }
+}
+
+
+/* Estilos del Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-card {
+  background: white;
+  width: 90%;
+  max-width: 500px; /* Tamaño mediano */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.modal-header {
+  background: #1a56db;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.modal-header h2 { margin: 0; font-size: 24px; }
+.modal-header p { margin: 5px 0 0; opacity: 0.9; font-size: 14px; }
+
+.modal-body {
+  padding: 25px;
+  background: #f9fafb;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed #ccc;
+  padding-bottom: 5px;
+}
+
+.sesiones-ticket {
+  background: #fff;
+  border: 2px solid #e5e7eb;
+  padding: 15px;
+  border-radius: 12px;
+}
+
+.ticket-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.ticket-row {
+  font-family: monospace;
+  font-size: 14px;
+  padding: 3px 0;
+  color: #374151;
+}
+
+.modal-footer {
+  padding: 20px;
+  text-align: center;
+  border-top: 1px solid #eee;
+}
+
+.modal-actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.btn-no {
+  flex: 1;
+  padding: 12px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-si {
+  flex: 1;
+  padding: 12px;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}

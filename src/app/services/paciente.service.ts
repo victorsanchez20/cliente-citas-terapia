@@ -14,6 +14,6 @@ export class PacienteService {
   constructor(private http: HttpClient) { }
 
   getPacienteById(dni: string) {
-    return this.http.get<Paciente>(`${this.url}/buscar`, { params: { q: dni}});
+    return this.http.get<Paciente>(`${this.url}/${dni}`);
   }
 }

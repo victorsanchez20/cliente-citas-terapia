@@ -1,21 +1,24 @@
-<!-- <router-outlet /> -->
-<div class="container">
-  <h1>1er Paso: Ingrese el número de DNI</h1>
+<div class="dni-container" *ngIf="step === 1">
 
-  <div *ngIf="paciente">
-    <p>{{ paciente?.nombre }}</p>
-  </div>
+  <div class="dni-card">
+    <h1 class="dni-title">Registro de Citas</h1>
+    <p class="dni-subtitle">Ingrese su número de DNI para continuar</p>
 
-  <div class="section-1">
+    <div class="paciente-info" *ngIf="paciente">
+      <span class="paciente-label">Paciente:</span>
+      <span class="paciente-nombre">{{ paciente.nombre }} {{paciente.apaterno}} {{paciente.amaterno}}</span>
+    </div>
+
     <input
       type="text"
-      placeholder="Ingrese número de DNI"
+      class="dni-input"
+      placeholder="DNI"
       maxlength="8"
       [(ngModel)]="dni"
       readonly
     />
 
-    <table class="teclado">
+    <table class="keypad">
       <tbody>
         <tr>
           <td (click)="agregarNumero('7')">7</td>
@@ -28,18 +31,183 @@
           <td (click)="agregarNumero('6')">6</td>
         </tr>
         <tr>
-          <td (click)="agregarNumero('3')">3</td>
-          <td (click)="agregarNumero('2')">2</td>
           <td (click)="agregarNumero('1')">1</td>
+          <td (click)="agregarNumero('2')">2</td>
+          <td (click)="agregarNumero('3')">3</td>
         </tr>
         <tr>
-          <td colspan="2" class="zerox" (click)="agregarNumero('0')">0</td>
-          <td class="back" (click)="borrar()">←</td>
+          <td colspan="2" class="zero" (click)="agregarNumero('0')">0</td>
+          <td class="delete" (click)="borrar()">⌫</td>
         </tr>
       </tbody>
     </table>
 
-    <button type="button" (click)="buscarPaciente()">Buscar</button>
-    <button type="button" (click)="limpiar()">Limpiar</button>
+    <div class="actions">
+      <button class="btn-primary" (click)="buscarPaciente()">Continuar</button>
+      <button class="btn-secondary" (click)="limpiar()">Limpiar</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="dni-container" *ngIf="step === 2">
+  <div class="dni-card step-card">
+
+    <button class="arrow left" (click)="anterior()">❮</button>
+
+    <h1 class="dni-title">Confirmar Datos</h1>
+
+    <div class="paciente-info big">
+      <p style="font-size: 25px;"><strong>DNI:</strong> {{ dni }}</p>
+      <p style="font-size: 25px;">
+        <strong>Paciente:</strong><br />
+        <strong>
+          {{ paciente?.nombre }}
+          {{ paciente?.apaterno }}
+          {{ paciente?.amaterno }}
+        </strong>
+      </p>
+    </div>
+
+    <button class="arrow right" (click)="siguiente()">❯</button>
+  </div>
+</div>
+
+
+<!-- PASO 3: SELECCIÓN DE TURNO -->
+<div class="dni-container" *ngIf="step === 3">
+  <!-- Tarjeta contenedor para mantener el estilo blanco y sombras -->
+  <div class="dni-card selection-card">
+    
+    <!-- Botón Anterior -->
+    <button class="arrow left" (click)="anterior()">❮</button>
+
+    <h1 class="dni-title">Programar Cita</h1>
+    <p class="dni-subtitle">Seleccione terapista y horario disponible</p>
+
+    <div class="selection-columns">
+      <!-- COLUMNA 1: TERAPISTAS -->
+      <div class="selection-column">
+        <h3><i class="icon-user"></i> Terapistas</h3>
+        <div class="scroll-area">
+          <div
+            *ngFor="let t of terapistas"
+            class="selectable-item"
+            [class.selected]="terapistaSeleccionado?.id === t.id"
+            (click)="seleccionarTerapista(t)"
+          >
+            {{ t.nombre }}
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMNA 2: HORAS -->
+      <div class="selection-column" *ngIf="terapistaSeleccionado">
+        <h3><i class="icon-clock"></i> Horas</h3>
+        <div class="scroll-area grid-hours">
+          <button
+            *ngFor="let h of horasDoctor"
+            class="hour-pill"
+            [class.selected]="horaSeleccionada === h"
+            (click)="seleccionarHora(h)"
+          >
+            {{ h }}
+          </button>
+        </div>
+      </div>
+
+      <!-- COLUMNA 3: RESUMEN -->
+      <div class="selection-column summary-view" *ngIf="horaSeleccionada">
+        <h3><i class="icon-check"></i> Resumen de Sesiones</h3>
+        
+        <div class="summary-card">
+          <div class="dias-preview">
+            
+            <div *ngIf="diasVista.length > 0">
+              <p class="label-mini">Se programarán las siguientes fechas:</p>
+              <ul>
+                <li *ngFor="let d of diasVista" style="color: #2e7d32; font-weight: 500;">
+                  ✅ {{ d }} a las {{ horaSeleccionada }}
+                </li>
+              </ul>
+            </div>
+
+            <div *ngIf="diasVista.length === 0" class="error-container">
+              <div style="background: #fdf2f2; border: 2px solid #f8b4b4; padding: 15px; border-radius: 10px; text-align: center;">
+                <span style="font-size: 30px;">🚫</span>
+                <p style="color: #af2b2b; font-weight: bold; margin: 10px 0 0 0;">
+                  HORARIO NO DISPONIBLE
+                </p>
+                <p style="color: #555; font-size: 13px;">
+                  Todas las fechas para las {{ horaSeleccionada }} ya están reservadas. 
+                  Por favor, intente con otra hora.
+                </p>
+              </div>
+            </div>
+
+          </div>
+
+          <button 
+            class="btn-primary btn-confirm" 
+            (click)="confirmarGuardado()" 
+            [disabled]="diasVista.length === 0">
+            Confirmar Cita
+          </button>
+        </div>
+      </div>
+
+    <!-- Botón Siguiente (opcional si usas el de confirmar) -->
+    <button class="arrow right" *ngIf="step < 3" (click)="siguiente()">❯</button>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="mostrarModalConfirmacion">
+  <div class="modal-card">
+    <div class="modal-header">
+      <h2>Validación de Cita</h2>
+      <p>Por favor, tome una foto de esta información</p>
+    </div>
+
+    <div class="modal-body">
+      <div class="info-grid">
+        <div class="info-item">
+          <strong>Paciente:</strong>
+          <span>{{ paciente?.nombre }} {{ paciente?.apaterno }} {{ paciente?.amaterno }}</span>
+        </div>
+        <div class="info-item">
+          <strong>DNI:</strong>
+          <span>{{ dni }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Terapista:</strong>
+          <span>{{ terapistaSeleccionado?.nombre }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Hora:</strong>
+          <span>{{ horaSeleccionada }}</span>
+        </div>
+        <div class="info-item">
+          <strong>Fecha Registro:</strong>
+          <span>{{ fechaActual }}</span>
+        </div>
+      </div>
+
+      <div class="sesiones-ticket">
+        <strong>Cronograma de Sesiones ({{ diasVista.length }}):</strong>
+        <div class="ticket-list">
+          <div *ngFor="let d of diasVista; let i = index" class="ticket-row">
+            Sesión {{ i + 1 }}: {{ d }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <p>¿Desea finalizar el registro?</p>
+      <div class="modal-actions">
+        <button class="btn-no" (click)="cerrarModal()">No, corregir</button>
+        <button class="btn-si" (click)="ejecutarGuardado()">Sí, registrar</button>
+      </div>
+    </div>
   </div>
 </div>
