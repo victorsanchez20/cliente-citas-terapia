@@ -10,7 +10,8 @@ import { HorarioDoctorService } from './services/horario-doctor.service';
 import { DisponibilidadDoctorService } from './services/disponibilidad-terapia.service';
 import { CitaService } from './services/cita.service';
 import { HttpClient } from '@angular/common/http';
-import { environment } from './environments/environment';
+import { environment } from '../environments/environment';
+
 
 @Component({
   selector: 'app-root',
